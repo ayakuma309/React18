@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, startTransition } from 'react'
 import { Avatar } from './Avatar';
 
 
@@ -42,6 +42,10 @@ const Transition = () => {
   //担当者を選択する
   const onClickAssignee = (assignee: string) => {
     setSelectedAssignee(assignee);
+    startTransition(() => {
+      //緊急性の高い処理以外をTransitionにする
+      setTaskList(filteringAssignee(assignee));
+    });
     //担当者が選択されたら、その担当者のタスクのみ表示する
     setTaskList(filteringAssignee(assignee));
   }
