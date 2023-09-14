@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useState, useTransition } from 'react'
 import { Sidebar } from './Sidebar';
 import { AlbumList } from './AlbumList';
 import { TodoList } from './TodoList';
@@ -8,6 +8,7 @@ type Tabs = 'todo' | 'album';
 
 const ReactQuery = () => {
   const [selectedTab, setSelectedTab] = useState<Tabs>('todo');
+  const [isPending, startTransition] = useTransition();
 
   //ボタンのスタイル
   const buttonStyle = {
@@ -20,6 +21,7 @@ const ReactQuery = () => {
     ...buttonStyle,
     backgroundColor: selectedTab === 'album' ? 'royalblue' : 'white',
     color: selectedTab === 'album' ? 'white' : 'black',
+    opacity: isPending ? 0.5 : 1,
   }
   //todoのボタンスタイル
   const todoButtonStyle = {
@@ -29,7 +31,9 @@ const ReactQuery = () => {
   }
 
   const onClickTabButton = (tab: Tabs) => {
-    setSelectedTab(tab);
+    startTransition(() => {
+      setSelectedTab(tab);
+    });
   }
 
   return (
