@@ -1,23 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import React from 'react'
+import React, { Suspense } from 'react'
+import { Sidebar } from './Sidebar';
+import { AlbumList } from './AlbumList';
+import { TodoList } from './TodoList';
+import { ErrorBoundary } from 'react-error-boundary';
 
-type Album = {
-  userId: number;
-  id: number;
-  title: string;
-}
-
-const fetchAlbums = async () => {
-  const result = await axios.get<Album[]>('https://jsonplaceholder.typicode.com/albums')
-  return result.data;
-}
 const ReactQuery = () => {
   //key設定, fetcher関数設定
-  const { data } = useQuery<Album[]>(['albums'], fetchAlbums);
   return (
     <div>
-      {data?.map((album) => <p key={album.id}>{album.title}</p>)}
+      <Sidebar />
+      <ErrorBoundary fallback={<h1>Todo or AlbumListエラーだよ〜</h1>}>
+        <Suspense fallback={<p>Todo or AlbumListローディング中だよ〜</p>}>
+          <AlbumList />
+          <TodoList />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   )
 }
