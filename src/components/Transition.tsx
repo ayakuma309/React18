@@ -34,12 +34,12 @@ const filteringAssignee = (assignee: string) => {
 }
 
 const Transition = () => {
-
   //選択された担当者
   const [selectedAssignee, setSelectedAssignee] = useState<string>('');
   //一覧表示するタスク(初期値は全てのタスク、担当者が選択されたらその担当者のタスクのみ表示する)
   const [taskList, setTaskList] = useState<Task[]>(tasks);
-
+  //trueの時だけ一覧を表示する
+  const [isShowList, setIsShowList] = useState<boolean>(false);
 
   //担当者を選択する
   const onClickAssignee = (assignee: string) => {
@@ -58,8 +58,10 @@ const Transition = () => {
         <Avatar isSelected={selectedAssignee === member.c} onClick={onClickAssignee}>{member.c}</Avatar>
       </div>
       <br />
+      <br />
+      <button onClick={() => setIsShowList(!isShowList)}>表示/非表示</button>
+      {isShowList && <TaskList taskList={taskList} />}
       <button onClick={() => onClickAssignee('')}>リセット</button>
-      <TaskList taskList={taskList} />
     </div>
   )
 }
