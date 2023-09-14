@@ -1,4 +1,4 @@
-import React, { useState, startTransition } from 'react'
+import React, { useState, useTransition } from 'react'
 import { Avatar } from './Avatar';
 
 
@@ -33,6 +33,8 @@ const filteringAssignee = (assignee: string) => {
 }
 
 const Transition = () => {
+  const [isPending, startTransition] = useTransition();
+
   //選択された担当者
   const [selectedAssignee, setSelectedAssignee] = useState<string>('');
   //一覧表示するタスク(初期値は全てのタスク、担当者が選択されたらその担当者のタスクのみ表示する)
@@ -61,7 +63,7 @@ const Transition = () => {
       <br />
       <button onClick={() => onClickAssignee('')}>リセット</button>
       {taskList.map((task) =>(
-        <div key={task.id} style={{width: '300px', margin: 'auto', background: 'lavender'}}>
+        <div key={task.id} style={{width: '300px', margin: 'auto', background: 'lavender', opacity: isPending ? 0.5 : 1}}>
           <p>{task.title}</p>
           <p>{task.assignee}</p>
         </div>
