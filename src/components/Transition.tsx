@@ -1,4 +1,5 @@
 import React from 'react'
+import { Avatar } from './Avatar';
 
 
 type Task = {
@@ -30,6 +31,12 @@ const Transition = () => {
   return (
     <div>
       <p>Transition</p>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Avatar>{member.a}</Avatar>
+        <Avatar>{member.b}</Avatar>
+        <Avatar>{member.c}</Avatar>
+      </div>
+      <br />
       {tasks.map((task) =>(
         <div key={task.id} style={{width: '300px', margin: 'auto', background: 'lavender'}}>
           <p>{task.title}</p>
