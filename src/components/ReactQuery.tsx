@@ -9,6 +9,24 @@ type Tabs = 'todo' | 'album';
 const ReactQuery = () => {
   const [selectedTab, setSelectedTab] = useState<Tabs>('todo');
 
+  //ボタンのスタイル
+  const buttonStyle = {
+    padding: '12px',
+    fontSize: '16px',
+    border: 'none',
+  }
+  //albumボタンのスタイル
+  const albumButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: selectedTab === 'album' ? 'royalblue' : 'white',
+    color: selectedTab === 'album' ? 'white' : 'black',
+  }
+  //todoのボタンスタイル
+  const todoButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: selectedTab === 'todo' ? 'royalblue' : 'white',
+    color: selectedTab === 'todo' ? 'white' : 'black',
+  }
 
   const onClickTabButton = (tab: Tabs) => {
     setSelectedTab(tab);
@@ -20,8 +38,8 @@ const ReactQuery = () => {
       <div style={{ flexGrow: 1 }}>
         <ErrorBoundary fallback={<h1>Todo or AlbumListエラーだよ〜</h1>}>
           <Suspense fallback={<p>Todo or AlbumListローディング中だよ〜</p>}>
-            <button  onClick={() => onClickTabButton('todo')}>Todo</button>
-            <button  onClick={() => onClickTabButton('album')}>Album</button>
+            <button style={todoButtonStyle} onClick={() => onClickTabButton('todo')}>Todo</button>
+            <button style={albumButtonStyle} onClick={() => onClickTabButton('album')}>Album</button>
             {selectedTab === 'todo' ? <TodoList /> : <AlbumList />}
           </Suspense>
         </ErrorBoundary>
