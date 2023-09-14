@@ -16,8 +16,8 @@ const ReactQuery = () => {
   //key設定, fetcher関数設定
   const {isLoading, error, data } = useQuery<Album[]>(['albums'], fetchAlbums);
 
-  if (error) return <p>エラーです!</p>;
-  if (isLoading) return <p>ローディング中です...</p>;
+  // if (error) return <p>エラーです!</p>;
+  // if (isLoading) return <p>ローディング中です...</p>;
   return (
     <div>
       {data?.map((album) => <p key={album.id}>{album.title}</p>)}
