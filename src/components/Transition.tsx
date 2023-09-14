@@ -55,7 +55,7 @@ const Transition = () => {
         <Avatar isSelected={selectedAssignee === member.c} onClick={onClickAssignee}>{member.c}</Avatar>
       </div>
       <br />
-      
+      <button onClick={() => onClickAssignee('')}>リセット</button>
       {taskList.map((task) =>(
         <div key={task.id} style={{width: '300px', margin: 'auto', background: 'lavender'}}>
           <p>{task.title}</p>
